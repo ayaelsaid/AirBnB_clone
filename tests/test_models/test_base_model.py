@@ -4,9 +4,9 @@ unittests for base_model.py
 """
 import os
 import models
+from time import sleep
 import unittest
 from datetime import datetime
-from time import sleep
 from models.base_model import BaseModel
 
 
