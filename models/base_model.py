@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 from datetime import datetime
 from uuid import uuid4
-import models
 
 
 class BaseModel:
+    """ a class BaseModel that defines methods for other classes"""
     def __init__(self, *args, **kwargs):
-        self.id = str(uuid4())
+        """initalize Public instance attributes"""
+        self.id = str(uuid.uuid4())
         self.created_at = datetime.datetime.now()
         self.updated_at = datetime.datetime.now()
         if kwargs:
@@ -25,14 +26,17 @@ class BaseModel:
             storage.new(self)
 
     def __str__(self):
+        """return string"""
         name = self.__class__.__name__
         return ("[{}] ({}) {}".format(name, self.id, self.__dict__))
 
     def save(self):
+        """save updated"""
         self.updated_at = datetime.datetime.now()
         FileStorage.save()
 
     def to_dict(self):
+        """return to dictionary"""
         obj = self.__dict__.copy()
         obj['__class__'] = self.__class__.__name__
         obj['create_at'] = self.created_at.isoformat()
